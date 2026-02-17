@@ -46,6 +46,7 @@ def promotion_image():
 </body>
 </html>'''
 
+
 @app.route('/image_mars')
 def image_mars():
     return f'''<!DOCTYPE html>
@@ -82,26 +83,35 @@ def astronaut_selection():
                             <h1>Форма для регистрации в суперсекретной системе</h1>
                             <div>
                                 <form class="login_form" method="post">
+                                    <input type="text" class="form-control" id="name" placeholder="Имя" name="name">
+                                    <input type="text" class="form-control" id="surname" placeholder="Фамилия" name="surname">
                                     <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Введите адрес почты" name="email">
-                                    <input type="password" class="form-control" id="password" placeholder="Введите пароль" name="password">
                                     <div class="form-group">
-                                        <label for="classSelect">В каком вы классе</label>
+                                        <label for="classSelect">Какое у вас образование</label>
                                         <select class="form-control" id="classSelect" name="class">
-                                          <option>7</option>
-                                          <option>8</option>
-                                          <option>9</option>
-                                          <option>10</option>
-                                          <option>11</option>
+                                          <option>Начальное</option>
+                                          <option>Купленный диплом</option>
+                                          <option>Палтос</option>
+                                          <option>Забив</option>
                                         </select>
                                      </div>
-                                    <div class="form-group">
-                                        <label for="about">Немного о себе</label>
-                                        <textarea class="form-control" id="about" rows="3" name="about"></textarea>
+                                     
+                                     <div class="form-group">
+                                        <label for="form-check">Какие у вас были профессии</label>
+                                        <div class="form-check">
+                                          <input class="form-check-input" type="choice" name="sex" id="male" checked>
+                                          <label class="form-check-label" for="male">
+                                            Инженер-Строитель
+                                          </label>
+                                        </div>
+                                        <div class="form-check">
+                                          <input class="form-check-input" type="choice" name="sex" id="female">
+                                          <label class="form-check-label" for="two">
+                                            Инженер-Исследователь
+                                          </label>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="photo">Приложите фотографию</label>
-                                        <input type="file" class="form-control-file" id="photo" name="file">
-                                    </div>
+                                     
                                     <div class="form-group">
                                         <label for="form-check">Укажите пол</label>
                                         <div class="form-check">
@@ -117,15 +127,28 @@ def astronaut_selection():
                                           </label>
                                         </div>
                                     </div>
-                                    <div class="form-group form-check">
-                                        <input type="checkbox" class="form-check-input" id="acceptRules" name="accept">
-                                        <label class="form-check-label" for="acceptRules">Готов быть добровольцем</label>
+                                    
+                                    <div class="form-group">
+                                        <label for="about">Почему вы хотите учавстовать в миссии</label>
+                                        <textarea class="form-control" id="about" rows="3" name="about"></textarea>
                                     </div>
+                                     
+                                     <div class="form-group">
+                                        <label for="photo">Приложите фотографию</label>
+                                        <input type="file" class="form-control-file" id="photo" name="file">
+                                    </div>
+                                     
+                                     <div class="form-group form-check">
+                                        <input type="checkbox" class="form-check-input" id="acceptRules" name="accept">
+                                        <label class="form-check-label" for="acceptRules">Готов остаться на марсе</label>
+                                    </div>
+                                    
                                     <button type="submit" class="btn btn-primary">Записаться</button>
                                 </form>
                             </div>
                           </body>
                         </html>'''
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
