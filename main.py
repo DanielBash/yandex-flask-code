@@ -150,5 +150,48 @@ def astronaut_selection():
                         </html>'''
 
 
+@app.route('/choice/<planet>')
+def promotion_image(planet):
+    if planet == 'Марс':
+        return f'''<!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{url_for('static', filename='css/style.css')}">
+    <title>Привет, {planet}!</title>
+    </head>
+    <body>
+    <h1>Моё предложение: {planet}!</h1>
+    <img src="{url_for('static', filename='img/img.png')}"/>
+    <p>Марс - красный блин</p>
+    <div class="p-3 mb-2 alert-info" style="font-size: 30px">Эта планета близка к земле</div>
+    <div class="p-3 mb-2 alert-success" style="font-size: 30px">На ней вода и отмосфера</div>
+    <div class="p-3 mb-2 alert-warning" style="font-size: 30px">На ней небольшое магнитное поле</div>
+    <div class="p-3 mb-2 alert-danger" style="font-size: 30px">Наконец, она просто красива</div>
+    </body>
+    </html>'''
+    else:
+        return f'''<!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{url_for('static', filename='css/style.css')}">
+    <title>Привет, {planet}!</title>
+    </head>
+    <body>
+    <h1>Моё предложение: {planet}!</h1>
+    <img src="{url_for('static', filename='img/img.png')}"/>
+    <p>Марс - красный блин</p>
+    <div class="p-3 mb-2 alert-info" style="font-size: 30px">Ничего не изветсно</div>
+    </body>
+    </html>'''
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
