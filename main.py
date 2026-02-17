@@ -1,26 +1,28 @@
-from flask import Flask
+from flask import Flask, url_for
 
 app = Flask(__name__)
+
 
 @app.route('/')
 def index():
     return 'Миссия Колонизация Марса'
 
+
 @app.route('/promotion')
-def index():
-    return '''Человечество вырастает из детства.
+def promo():
+    return '''Человечество вырастает из детства.<br/>
 
-Человечеству мала одна планета.
+Человечеству мала одна планета.<br/>
 
-Мы сделаем обитаемыми безжизненные пока планеты.
+Мы сделаем обитаемыми безжизненные пока планеты.<br/>
 
-И начнем с Марса!
+И начнем с Марса!<br/>
 
-Присоединяйся!'''
+Присоединяйся!<br/>'''
 
 
 @app.route('/image_mars')
-def index():
+def image_mars():
     return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,11 +32,9 @@ def index():
 <title>Привет, Марс!</title>
 </head>
 <body>
-<main>
-<h1>Welcome to My Website</h1>
-<p>This is a paragraph.</p>
-</main>
-<script src="index.js"></script>
+<h1>Жди нас, Марс!</h1>
+<img src="{url_for('static', filename='img/img.png')}"/>
+<p>Марс - красный блин</p>
 </body>
 </html>'''
 
