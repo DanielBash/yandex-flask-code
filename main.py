@@ -1,4 +1,7 @@
-from flask import Flask, url_for
+import os
+from datetime import datetime
+
+from flask import Flask, url_for, session, request
 
 app = Flask(__name__)
 
@@ -191,6 +194,7 @@ def choice(planet):
     </body>
     </html>'''
 
+
 @app.route('/results/<nickname>/<int:level>/<float:rating>')
 def results(nickname, level, rating):
     return f'''<!DOCTYPE html>
@@ -212,5 +216,49 @@ def results(nickname, level, rating):
     </body>
     </html>'''
 
+
+@app.route('/load_photo', methods=['GET', 'POST'])
+def load_photo():
+    if request.method == 'POST':
+        if 'photo' in request.files:
+            photo = request.files['photo']
+            if photo.filename != '':
+                ext = photo.filename.rsplit('.', 1)[1].lower() if '.' in photo.filename else 'png'
+                filename = f"photo_{datetime.now().strftime('%Y%m%d_%H%M%S')}.{ext}"
+                file_path = os.path.join('static', 'img', filename)
+                photo.save(file_path)
+
+                session['photo_path'] = f"img/{filename}"
+
+    photo_path = session.get('photo_path', 'img/photo.png')
+
+    return f'''<!doctype html>
+                        <html lang="en">
+                          <head>
+                            <meta charset="utf-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                            <link rel="stylesheet"
+                            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+                            integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+                            crossorigin="anonymous">
+                            <link rel="stylesheet" type="text/css" href="{url_for('static', filename='css/style.css')}" />
+                            <title>Загрузка фото</title>
+                          </head>
+                          <body>
+                            <form method="post" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="photo" class="form-label">Загрузка фотографии для участия в миссии</label>
+                                    <input type="file" class="form-control" id="photo" name="photo" accept="image/*" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Отправить</button>
+                            </form>
+                            <div class="mt-3">
+                                <img src="{url_for('static', filename=photo_path)}" alt="Ваше фото" class="img-thumbnail" style="max-width: 300px;">
+                            </div>
+                          </body>
+                        </html>'''
+
+
 if __name__ == '__main__':
+    app.secret_key = 'secret-to-make-sessions-work'
     app.run(host='0.0.0.0', port=8080)
