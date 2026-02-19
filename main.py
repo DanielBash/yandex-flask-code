@@ -151,7 +151,7 @@ def astronaut_selection():
 
 
 @app.route('/choice/<planet>')
-def promotion_image(planet):
+def choice(planet):
     if planet == 'Марс':
         return f'''<!DOCTYPE html>
     <html lang="en">
@@ -165,8 +165,7 @@ def promotion_image(planet):
     </head>
     <body>
     <h1>Моё предложение: {planet}!</h1>
-    <img src="{url_for('static', filename='img/img.png')}"/>
-    <p>Марс - красный блин</p>
+    <h2>Эта планета близка к земле;</h2>
     <div class="p-3 mb-2 alert-info" style="font-size: 30px">Эта планета близка к земле</div>
     <div class="p-3 mb-2 alert-success" style="font-size: 30px">На ней вода и отмосфера</div>
     <div class="p-3 mb-2 alert-warning" style="font-size: 30px">На ней небольшое магнитное поле</div>
