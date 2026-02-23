@@ -1,14 +1,20 @@
-import os
-from datetime import datetime
-import jinja2
-from flask import Flask, url_for, session, request, render_template
+from flask import Flask, render_template
 
 app = Flask(__name__)
+
 
 @app.route('/<string:title>')
 @app.route('/index/<string:title>')
 def index(title):
-    return render_template('index.html', title=title)
+    return render_template('base.html', title=title)
+
+
+@app.route('/training/<string:prof>')
+def training(prof):
+    training_target = 'Научные симуляторы'
+    if 'инженер' in prof or 'строитель' in prof:
+        training_target = 'Инженерные тренажеры'
+    return render_template('training.html', training_target=training_target)
 
 
 if __name__ == '__main__':
