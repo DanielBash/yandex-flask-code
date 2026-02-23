@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.surname.label }} {{ form.surname }}<br>
+        {{ form.name.label }} {{ form.name }}<br>
+        {{ form.education.label }} {{ form.education }}<br>
+        {{ form.profession.label }} {{ form.profession }}<br>
+        {{ form.sex.label }} {{ form.sex }}<br>
+        {{ form.motivation.label }} {{ form.motivation }}<br>
+        {{ form.ready }} {{ form.ready.label }}<br>
+        <input type="submit" value="Отправить">
+    </form>
+{% endblock %}
