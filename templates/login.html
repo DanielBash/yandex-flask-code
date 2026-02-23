@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<img src="https://yastatic.net/s3/lyceum/content/images/second-year/web/MARS-2-7.png"/>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.capitan_id.label }} {{ form.capitan_id }}<br>
+        {{ form.capitan_pass.label }} {{ form.capitan_pass }}<br>
+        {{ form.user_id.label }} {{ form.user_id }}<br>
+        {{ form.user_pass.label }} {{ form.user_pass }}<br>
+        <input type="submit" value="Отправить">
+    </form>
+{% endblock %}

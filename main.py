@@ -1,10 +1,11 @@
 from flask import Flask, render_template, redirect, url_for, session
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SelectField, BooleanField
-from wtforms.validators import Optional, DataRequired
+from wtforms.validators import DataRequired
 
 app = Flask(__name__)
 professions = 'Водопроводчик Ниндзя Тусовщица Анимешник Переводчик Стилист Продакт-менеджер Профессор-математики'.split()
+all_users = []
 
 
 class ProfileForm(FlaskForm):
@@ -14,7 +15,15 @@ class ProfileForm(FlaskForm):
     profession = StringField('Профессия', validators=[DataRequired()])
     sex = SelectField('Пол', choices=[('male', 'Мужчина'), ('female', 'Женщина')], validators=[DataRequired()])
     motivation = TextAreaField('Мотивация')
+    password = StringField('Пароль', validators=[DataRequired()])
     ready = BooleanField('Готовы ли вы остаться на марсе?')
+
+
+class LoginForm(FlaskForm):
+    capitan_id = StringField('ID капитана', validators=[DataRequired()])
+    capitan_pass = StringField('Пароль капитана', validators=[DataRequired()])
+    user_id = StringField('ID пользователя', validators=[DataRequired()])
+    user_pass = StringField('Пароль пользователя', validators=[DataRequired()])
 
 
 @app.route('/<string:title>')
@@ -46,13 +55,13 @@ def answer():
             return redirect(url_for('index', title='ОШИБКА'))
         data = form.data
         session['form_data'] = data
+        all_users.append(form.data)
         return redirect(url_for('index', title='Форма отправлена'))
     return render_template('answer.html', form=form)
 
 
 @app.route('/auto_answer', methods=['GET'])
 def auto_answer():
-    print(session['form_data'])
     return render_template('auto_answer.html', data={
         'ФАМИЛИЯ': session['form_data']['surname'],
         'ИМЯ': session['form_data']['name'],
@@ -62,6 +71,17 @@ def auto_answer():
         'ОБРОЗАВАНИЕ': session['form_data']['education'],
         'ГОТОВ ОСТАТЬСЯ?': session['form_data']['ready'],
     })
+
+
+@app.route('/login', methods=['GET'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        if not form.validate_on_submit():
+            return redirect(url_for('index', title='ОШИБКА'))
+        data = form.data
+        return redirect(url_for('index', title='Форма отправлена'))
+    return render_template('login.html', form=form)
 
 
 if __name__ == '__main__':
