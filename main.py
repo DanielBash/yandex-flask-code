@@ -1,13 +1,19 @@
 import colorsys
+import os
 
 from flask import Flask, render_template, redirect, url_for, session
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SelectField, BooleanField
-from wtforms.validators import DataRequired
+from flask_wtf.file import FileAllowed
+from werkzeug.utils import secure_filename
+from wtforms import StringField, TextAreaField, SelectField, BooleanField, FileField, SubmitField
+from wtforms.validators import DataRequired, InputRequired
+
 
 app = Flask(__name__)
 professions = 'Водопроводчик Ниндзя Тусовщица Анимешник Переводчик Стилист Продакт-менеджер Профессор-математики'.split()
+app.config['UPLOAD_FOLDER'] = 'static\\uploads'
 all_users = []
+images = []
 
 
 def generate_color(sex, age):
@@ -42,6 +48,12 @@ class LoginForm(FlaskForm):
     capitan_pass = StringField('Пароль капитана', validators=[DataRequired()])
     user_id = StringField('ID пользователя', validators=[DataRequired()])
     user_pass = StringField('Пароль пользователя', validators=[DataRequired()])
+
+class UploadForm(FlaskForm):
+    image = FileField('Choose an image', validators=[
+        InputRequired(),
+    ])
+    submit = SubmitField('Upload')
 
 
 @app.route('/<string:title>')
@@ -117,6 +129,18 @@ def table(sex, age):
         image_url = 'https://static.scientificamerican.com/dam/m/2a63d59b62cb6c52/original/Xenolinguistics_alien_lauguage.jpeg'
 
     return render_template('table.html', color=color, image_url=image_url)
+
+
+@app.route('/galery', methods=['GET', 'POST'])
+def galery():
+    form = UploadForm()
+    if form.validate_on_submit():
+        file = form.image.data
+        filename = secure_filename(file.filename)
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(file_path)
+        images.append(f'uploads/{filename}')
+    return render_template('galery.html', form=form, images=images)
 
 
 if __name__ == '__main__':
