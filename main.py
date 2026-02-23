@@ -1,4 +1,5 @@
 import colorsys
+import json
 import os
 
 from flask import Flask, render_template, redirect, url_for, session
@@ -142,6 +143,11 @@ def galery():
         images.append(f'uploads/{filename}')
     return render_template('galery.html', form=form, images=images)
 
+@app.route('/member', methods=['GET', 'POST'])
+def member():
+    with open('templates\\test.json', 'r', encoding='utf-8') as f:
+        data = json.load(f)
+        return render_template('member.html', data=data)
 
 if __name__ == '__main__':
     app.secret_key = 'super-secure-secret-key'

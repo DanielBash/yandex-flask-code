@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<img src="https://static.scientificamerican.com/dam/m/2a63d59b62cb6c52/original/Xenolinguistics_alien_lauguage.jpeg"
+     alt="Image" style="max-width: 100%; height: auto;">
+{% set random_item = data | random %}
+{% set random_key = random_item | first %}
+{{ random_key }}: {{ random_item[random_key] }}
+{% endblock %}
