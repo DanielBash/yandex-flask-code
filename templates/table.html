@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+
+<table style="border-collapse: collapse; width: 100%;">
+  <tr>
+    <td style="background-color: {{ color }}; width: 50%; height: 200px; vertical-align: top;"></td>
+    <td style="width: 50%; padding: 10px; vertical-align: top;">
+      {% if image_url %}
+        <img src="{{ image_url }}" alt="Image" style="max-width: 100%; height: auto;">
+      {% else %}
+        Нет изображения
+      {% endif %}
+    </td>
+  </tr>
+</table>
+
+{% endblock %}
