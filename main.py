@@ -83,6 +83,11 @@ def login():
         return redirect(url_for('index', title='Форма отправлена'))
     return render_template('login.html', form=form)
 
+@app.route('/distribution', methods=['GET'])
+def distribution():
+    return render_template('distribution.html', ppl=[{'capitan': True, 'name': 'Владимир Владимирович'},
+                                              {'capitan': False, 'name': 'Обама'}, {'capitan': False, 'name': 'Трамп'}])
+
 
 if __name__ == '__main__':
     app.secret_key = 'super-secure-secret-key'

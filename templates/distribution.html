@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Список профессий</h2>
+
+{% for i in ppl %}
+<li>{{i['name']}} Каюта {{loop.index}}{% if i['capitan'] %} - Капитаниссимус{% endif %}</li>
+{% endfor %}
+</ol>
+{% endblock %}
